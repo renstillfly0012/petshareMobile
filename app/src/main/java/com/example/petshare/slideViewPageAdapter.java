@@ -71,7 +71,7 @@ public class slideViewPageAdapter extends PagerAdapter {
 
         switch (position){
             case 0:
-                logo.setImageResource(R.drawable.adopt);
+//                logo.setImageResource(R.drawable.adopt);
                 circle1.setImageResource(R.drawable.unselected);
                 circle2.setImageResource(R.drawable.selected);
                 circle3.setImageResource(R.drawable.unselected);
@@ -83,7 +83,7 @@ public class slideViewPageAdapter extends PagerAdapter {
                 next.setVisibility(View.VISIBLE);
                 break;
             case 1:
-                logo.setImageResource(R.drawable.report);
+//                logo.setImageResource(R.drawable.report);
                 circle1.setImageResource(R.drawable.unselected);
                 circle2.setImageResource(R.drawable.unselected);
                 circle3.setImageResource(R.drawable.selected);
@@ -95,7 +95,7 @@ public class slideViewPageAdapter extends PagerAdapter {
                 break;
 
             case 2:
-                logo.setImageResource(R.drawable.donate);
+//                logo.setImageResource(R.drawable.donate);
                 circle1.setImageResource(R.drawable.selected);
                 circle2.setImageResource(R.drawable.unselected);
                 circle3.setImageResource(R.drawable.unselected);
