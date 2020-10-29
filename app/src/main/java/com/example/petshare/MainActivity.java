@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +17,13 @@ import android.widget.Toast;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText Email, Password;
     private TextView lblEmail;
     private String email, password;
+    private HashMap<String, String> jsonUserData;
+
 
 
     @Override
@@ -68,7 +73,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //function for new activity
-//                if (!(email.isEmpty() && password.isEmpty())) {
+
+//                if(email.isEmpty())
+//                {
+//                    Email.setError();
+//                }
+//                else if(password.isEmpty()){
+//
+//                }
+//                else if (!(email.isEmpty() && password.isEmpty())) {
                     try {
                         login();
                     } catch (IOException e) {
@@ -97,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url("http://pet-share.com/api/guest/login?email=" + email + "&password=" + password)
                 .method("GET", null)
                 .build();
@@ -112,12 +125,34 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
+                    try {
+                        //get jsondata
+                        jsonUserData = new HashMap<String, String>();
+                        jsonUserData.put("id", new JSONObject(myResponse).getString("id"));
+                        jsonUserData.put("name", new JSONObject(myResponse).getString("name"));
+//                        jsonUserData.put("email", new JSONObject(myResponse).getString("email"));
+//                        jsonUserData.put("email_verified_at", new JSONObject(myResponse).getString("email_verified_at"));
+//                        jsonUserData.put("password", new JSONObject(myResponse).getString("password"));
+                        jsonUserData.put("role_id", new JSONObject(myResponse).getString("role_id"));
+                        jsonUserData.put("image", new JSONObject(myResponse).getString("image"));
+                        jsonUserData.put("status", new JSONObject(myResponse).getString("status"));
+
+
+                        Log.i("Test Data", ""+jsonUserData);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+
 
 
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            lblEmail.setText(myResponse);
+                          lblEmail.setText(jsonUserData.get("name"));
+
                             Toast.makeText(getBaseContext(), myResponse, LENGTH_LONG).show();
                         }
                     });
