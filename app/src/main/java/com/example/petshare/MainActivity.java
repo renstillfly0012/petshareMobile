@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblEmail;
     private String email, password;
     private HashMap<String, String> jsonUserData;
+    private Intent intent;
 
 
 
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Request request = new Request.Builder()
                 .url("http://pet-share.com/api/guest/login?email=" + email + "&password=" + password)
+//                .url("http://pet-share.com/api/guest/users/")
                 .method("GET", null)
                 .build();
 
@@ -138,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
                         jsonUserData.put("status", new JSONObject(myResponse).getString("status"));
 
 
+
+
                         Log.i("Test Data", ""+jsonUserData);
 
                     } catch (JSONException e) {
@@ -145,17 +150,22 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-
-
-
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                           lblEmail.setText(jsonUserData.get("name"));
 
-                            Toast.makeText(getBaseContext(), myResponse, LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("name")+"\n You have Successfully Login ", LENGTH_LONG).show();
+                            intent  = new Intent(getBaseContext(), dashboard_activity.class);
+                            intent.putExtra("id", jsonUserData.get("id"));
+                            intent.putExtra("name", jsonUserData.get("name"));
+                            intent.putExtra("role_id", jsonUserData.get("role_id"));
+                            intent.putExtra("image", jsonUserData.get("image"));
+                            intent.putExtra("status", jsonUserData.get("status"));
+                            startActivity(intent);
                         }
                     });
+
                 }
             }
         });
