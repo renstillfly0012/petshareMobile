@@ -3,6 +3,7 @@ package com.example.petshare;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private String email, password;
     private HashMap<String, String> jsonUserData;
     private Intent intent;
+    private ProgressDialog dialog;
 
 
 
@@ -107,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void login() throws IOException {
 
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setMessage("Processing");
+        dialog.show();
+
         email = Email.getText().toString().trim();
         password = Password.getText().toString().trim();
 
@@ -153,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                          lblEmail.setText(jsonUserData.get("name"));
-
+//                          lblEmail.setText(jsonUserData.get("name"));
+                            dialog.dismiss();
                             Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("name")+"\n You have Successfully Login ", LENGTH_LONG).show();
                             intent  = new Intent(getBaseContext(), dashboard_activity.class);
                             intent.putExtra("id", jsonUserData.get("id"));

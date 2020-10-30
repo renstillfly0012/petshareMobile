@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/txtConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -115,12 +115,12 @@
         android:layout_height="wrap_content"
         android:text="Confirm Password"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintEnd_toEndOf="@+id/txtConfirm"
+        app:layout_constraintStart_toStartOf="@+id/txtConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/txtConfirm" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSubmit"
         android:layout_width="101dp"
         android:layout_height="58dp"
         android:layout_marginTop="9dp"
@@ -131,14 +131,14 @@
         app:layout_constraintTop_toBottomOf="@+id/lblConfirmPassword" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnCancel"
         android:layout_width="101dp"
         android:layout_height="58dp"
         android:background="@drawable/login1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/btnSubmit"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintStart_toStartOf="@+id/btnSubmit"
         app:layout_constraintTop_toBottomOf="@+id/lblConfirmPassword"
         app:layout_constraintVertical_bias="1.0" />
 
