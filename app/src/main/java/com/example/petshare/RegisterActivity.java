@@ -59,13 +59,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                if (password == confirm) {
+                if (password != confirm) {
+                    Toast.makeText(getBaseContext(), "Password and confirm didn't match", Toast.LENGTH_SHORT).show();
+                }
+                submitForm();
 
-                    submitForm();
-//                }
-//                else{
-//                   Toast.makeText(getBaseContext(), "Password and confirm didn't match", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
     }
@@ -83,32 +81,24 @@ public class RegisterActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-
-//        JSONObject jsonArray = new JSONObject();
-//        try{
-//            jsonArray.put("name", name);
-//            jsonArray.put("email", email);
-//            jsonArray.put("password", password);
-//            jsonArray.put("confirm", confirm);
-//        }catch (JSONException e){
-//            e.printStackTrace();
-//        }
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         RequestBody formBody = new FormBody.Builder()
+                .add("type", JSON.toString())
                 .add("name", name)
                 .add("email", email)
                 .add("password", password)
                 .add("confirm", confirm)
                 .build();
 
-
         final Request request = new Request.Builder()
-                .url(Constant.REGISTER)
+                .url(Constant.REGISTER) //which is http://pet-share.com/api/guest/register
 //              .url("http://pet-share.com/api/guest/register?name="+name+"&email="+email+"&password="+password+"&password_confirmation="+confirm)
-                .method("POST", formBody)
+//                .method("POST", formBody)
+                .post(formBody)
                 .build();
 
+//        Log.i("Response Message", ""+request.body());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -120,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 //                    final String myResponse = response.body().string();
                     dialog.dismiss();
+                    Log.i("Response Message", ""+response);
 
                     RegisterActivity.this.runOnUiThread(new Runnable() {
                         @Override
