@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/edit_txtEmail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreen"
@@ -20,7 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_hamburger"
-        app:title="View Profile" />
+        app:title="Edit Profile"
+        app:titleTextColor="@color/colorYellow" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -35,7 +35,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/edit_txtName"
+                android:id="@+id/edit_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="20dp"
@@ -49,7 +49,7 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/txtFname"
+        android:id="@+id/edit_txtFname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <EditText
-        android:id="@+id/vp_txtEmail"
+        android:id="@+id/edit_txtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -74,10 +74,10 @@
         android:inputType="textEmailAddress"
         android:text="Juan Dela Cruz"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/txtFname"
+        app:layout_constraintEnd_toEndOf="@+id/edit_txtFname"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtFname"
-        app:layout_constraintTop_toBottomOf="@+id/txtFname" />
+        app:layout_constraintStart_toStartOf="@+id/edit_txtFname"
+        app:layout_constraintTop_toBottomOf="@+id/edit_txtFname" />
 
     <EditText
         android:id="@+id/edit_txtPassword"
@@ -90,12 +90,12 @@
         android:inputType="textPassword"
         android:text="********"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/vp_txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/vp_txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/vp_txtEmail" />
+        app:layout_constraintEnd_toEndOf="@+id/edit_txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/edit_txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/edit_txtEmail" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/edit_btnBack"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

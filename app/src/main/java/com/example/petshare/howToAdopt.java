@@ -7,34 +7,35 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-public class slideActivity extends AppCompatActivity {
+public class howToAdopt extends AppCompatActivity {
 
     public static ViewPager viewPager;
-    slideViewPageAdapter adapter;
+    HowViewPagerAdapater adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slide);
 
         viewPager=findViewById(R.id.viewpager);
-        adapter=new slideViewPageAdapter(this);
+        adapter=new HowViewPagerAdapater(this);
         viewPager.setAdapter(adapter);
-        if(isOpenAlready()){
-                                                    //if already opened, redirect here.
-            Intent intent = new Intent(slideActivity.this,MainActivity.class);
+
+        if(isAdoptAlready()){
+            Intent intent = new Intent(howToAdopt.this,dashboard_activity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
         else{
-            SharedPreferences.Editor editor = getSharedPreferences("slide", MODE_PRIVATE).edit();
-            editor.putBoolean("slide",true);
+            SharedPreferences.Editor editor = getSharedPreferences("howtoadopt", MODE_PRIVATE).edit();
+            editor.putBoolean("howtoadopt",true);
             editor.commit();
         }
     }
 
-    private boolean isOpenAlready() {
-        SharedPreferences sharedPreferences=getSharedPreferences("slide",MODE_PRIVATE);
-        boolean result = sharedPreferences.getBoolean("slide", false);
+    private boolean isAdoptAlready() {
+        SharedPreferences sharedPreferences=getSharedPreferences("howtoadopt",MODE_PRIVATE);
+        boolean result = sharedPreferences.getBoolean("howtoadopt", false);
         return result;
     }
 }

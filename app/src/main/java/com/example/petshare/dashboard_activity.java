@@ -31,6 +31,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
     ImageView imgUserImg;
     Log log;
     String id,name,role_id,image,status,imgUrl;
+    private Intent intent;
 
 
     @SuppressLint("WrongViewCast")
@@ -109,13 +110,23 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
             case R.id.nav_home:
                 break;
             case R.id.nav_adopt:
+                intent = new Intent(this, howToAdopt.class);
+                startActivity(intent);
                 break;
             case R.id.nav_report:
                 break;
             case R.id.nav_donate:
                 break;
+            case R.id.nav_view_profile:
+                intent = new Intent(this, viewProfileActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_edit:
+                intent = new Intent(this, editProfileActivity.class);
+                startActivity(intent);
+                break;
             case R.id.nav_logout:
-                Intent intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
         }
