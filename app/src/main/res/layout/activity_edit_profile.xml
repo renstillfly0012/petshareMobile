@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_txtEmail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreen"
@@ -34,6 +35,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/edit_txtName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="20dp"
@@ -96,8 +98,8 @@
         android:id="@+id/button"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_bg"
         android:text="BACK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
