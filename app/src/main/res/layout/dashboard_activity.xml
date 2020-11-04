@@ -61,6 +61,7 @@
                     android:rowCount="4">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewAdopt"
                         android:layout_width="170dp"
                         android:layout_height="170dp"
                         android:layout_marginTop="70dp"
@@ -94,6 +95,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewReport"
                         android:layout_width="170dp"
                         android:layout_height="170dp"
                         android:layout_marginTop="70dp"
@@ -112,13 +114,13 @@
                             <ImageView
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/adopt" />
+                                android:src="@drawable/report" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:text="ADOPT"
+                                android:text="REPORT"
                                 android:textColor="@color/colorYellow"
                                 android:textSize="16dp" />
 
@@ -127,6 +129,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewDonate"
                         android:layout_width="170dp"
                         android:layout_height="170dp"
                         android:layout_marginTop="10dp"
@@ -145,13 +148,13 @@
                             <ImageView
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/adopt" />
+                                android:src="@drawable/donate" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:text="ADOPT"
+                                android:text="DONATE"
                                 android:textColor="@color/colorYellow"
                                 android:textSize="16dp" />
 
@@ -184,7 +187,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:text="ADOPT"
+                                android:text="PET PROFILE"
                                 android:textColor="@color/colorYellow"
                                 android:textSize="16dp" />
 
@@ -217,7 +220,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:text="ADOPT"
+                                android:text="QR CODE"
                                 android:textColor="@color/colorYellow"
                                 android:textSize="16dp" />
 

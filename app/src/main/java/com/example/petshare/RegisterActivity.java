@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Test Data from fields", password+"\n"+confirm);
 
                 if (password != confirm) {
                     Toast.makeText(getBaseContext(), "Password and confirm didn't match", Toast.LENGTH_SHORT).show();

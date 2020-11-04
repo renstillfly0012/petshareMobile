@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -42,6 +43,13 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
+
+//
+//        Menu menu = navigationView.getMenu();
+//        menu.findItem(R.id.nav_logout).setVisible(false);
+//        menu.findItem(R.id.nav_view_profile).setVisible(false);
+//        menu.findItem(R.id.nav_edit).setVisible(false);
+
         //getting data from mainACtivity
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -62,6 +70,9 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_home);
+
         View header = navigationView.getHeaderView(0);
         txtUser = header.findViewById(R.id.txtUsername);
         txtRole = header.findViewById(R.id.txtRole);
@@ -93,6 +104,24 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch(menuItem.getItemId()){
+            case R.id.nav_home:
+                break;
+            case R.id.nav_adopt:
+                break;
+            case R.id.nav_report:
+                break;
+            case R.id.nav_donate:
+                break;
+            case R.id.nav_logout:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+        }
+
+        drawerLayout.closeDrawer((GravityCompat.START));
+
         return true;
     }
 }
