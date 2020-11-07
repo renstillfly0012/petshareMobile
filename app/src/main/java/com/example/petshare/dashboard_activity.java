@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +33,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
     Log log;
     String id,name,role_id,image,status,imgUrl;
     private Intent intent;
+    private SharedPreferences sharedPreferences;
 
 
     @SuppressLint("WrongViewCast")
@@ -51,18 +53,28 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 //        menu.findItem(R.id.nav_view_profile).setVisible(false);
 //        menu.findItem(R.id.nav_edit).setVisible(false);
 
-        //getting data from mainACtivity
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        name = intent.getStringExtra("name");
-        role_id = intent.getStringExtra("role_id");
 
-        image = intent.getStringExtra("image");
-        status = intent.getStringExtra("status");
+
+        //getting data from mainACtivity
+//        Intent intent = getIntent();
+//        id = intent.getStringExtra("id");
+//        name = intent.getStringExtra("name");
+//        role_id = intent.getStringExtra("role_id");
+//
+//        image = intent.getStringExtra("image");
+//        status = intent.getStringExtra("status");
+
+        sharedPreferences = getSharedPreferences("KEY_USER_INFO", MODE_PRIVATE);
+        id = sharedPreferences.getString("KEY_ID", null);
+        name = sharedPreferences.getString("KEY_NAME", null);
+        role_id = sharedPreferences.getString("KEY_ROLE_ID", null);
+        image = sharedPreferences.getString("KEY_IMAGE", null);
+        status = sharedPreferences.getString("KEY_STATUS", null);
 
 
 
        setSupportActionBar(toolbar);
+       getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         navigationView.bringToFront();
@@ -81,11 +93,13 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         imgUrl = "https://pet-share.com/assets/images/"+image;
         Glide.with(this).load(imgUrl).into(imgUserImg);
                 txtUser.setText(name);
-        if(role_id == "2"){
-            txtRole.setText("Foster User");
-        }else{
-            txtRole.setText("Admin User");
-        }
+//        if(role_id == "1"){
+//            txtRole.setText("Foster User");
+//        }else{
+//            txtRole.setText("Admin User");
+//        }
+
+        setRole(getRole(role_id));
 
 
 
@@ -127,6 +141,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_logout:
                 intent = new Intent(this, MainActivity.class);
+
                 startActivity(intent);
 
         }
@@ -134,5 +149,13 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         drawerLayout.closeDrawer((GravityCompat.START));
 
         return true;
+    }
+
+    public String getRole(String role_id){
+        return role_id == "1" ? "Admin User": "Foster User";
+    }
+
+    public void setRole(String role_id){
+        txtRole.setText(role_id);
     }
 }

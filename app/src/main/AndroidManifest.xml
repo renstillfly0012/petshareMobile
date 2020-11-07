@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".howToAdopt"></activity>
+        <activity android:name=".viewAllPets"></activity>
+        <activity android:name=".howToAdopt" />
         <activity android:name=".editProfileActivity" />
         <activity android:name=".viewProfileActivity" />
         <activity android:name=".dashboard_activity" />

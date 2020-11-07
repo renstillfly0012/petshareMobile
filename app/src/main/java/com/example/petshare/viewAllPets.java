@@ -12,36 +12,41 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
-public class viewProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class viewAllPets extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button btnBack;
-    EditText txtfname, txtEmail, txtPass;
-    ImageView userImg;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     String id,name,role_id,image,status,imgUrl;
     TextView txtUser,txtRole;
     ImageView imgUserImg;
-    private SharedPreferences sharedPreferences;
     private Intent intent;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_profile);
+        setContentView(R.layout.activity_view_all_pets);
 
-        drawerLayout = findViewById(R.id.viewuser_drawer_layout);
-        navigationView = findViewById(R.id.viewuser_nav_view);
-        toolbar = findViewById(R.id.viewuser_toolbar);
+        drawerLayout = findViewById(R.id.viewall_drawer_layout);
+        navigationView = findViewById(R.id.viewall_nav_view);
+        toolbar = findViewById(R.id.viewall_toolbar);
+
+//        Intent intent = getIntent();
+//        id = intent.getStringExtra("id");
+//        name = intent.getStringExtra("name");
+//        role_id = intent.getStringExtra("role_id");
+//
+//        image = intent.getStringExtra("image");
+//        status = intent.getStringExtra("status");
 
         sharedPreferences = getSharedPreferences("KEY_USER_INFO", MODE_PRIVATE);
         id = sharedPreferences.getString("KEY_ID", null);
@@ -50,8 +55,10 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
         image = sharedPreferences.getString("KEY_IMAGE", null);
         status = sharedPreferences.getString("KEY_STATUS", null);
 
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_close, R.string.navigation_drawer_open);
@@ -60,7 +67,7 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.nav_home);
+        navigationView.setCheckedItem(R.id.nav_adopt);
 
         View header = navigationView.getHeaderView(0);
         txtUser = header.findViewById(R.id.txtUsername);
@@ -69,24 +76,11 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
         imgUrl = "https://pet-share.com/assets/images/"+image;
         Glide.with(this).load(imgUrl).into(imgUserImg);
         txtUser.setText(name);
-//        if(role_id == "1"){
-//            txtRole.setText("Foster User");
-//        }else{
-//            txtRole.setText("Admin User");
-//        }
-
         setRole(getRole(role_id));
+    }
 
-        btnBack = findViewById(R.id.view_btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), dashboard_activity.class);
-                startActivity(intent);
-            }
-        });
-
-
+    private Toolbar setActionBar(Toolbar toolbar) {
+        return toolbar;
     }
 
     public void onBackPressed(){
@@ -104,9 +98,11 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
 
         switch(menuItem.getItemId()){
             case R.id.nav_home:
+                intent = new Intent(this, dashboard_activity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_adopt:
-                intent = new Intent(this, howToAdopt.class);
+                intent = new Intent(this, viewAllPets.class);
                 startActivity(intent);
                 break;
             case R.id.nav_report:
@@ -123,8 +119,13 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_logout:
                 intent = new Intent(this, MainActivity.class);
-
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(getBaseContext(), "Log out Successfully", Toast.LENGTH_SHORT);
                 startActivity(intent);
+                finish();
+
 
         }
 

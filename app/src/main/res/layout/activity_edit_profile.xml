@@ -18,9 +18,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_hamburger"
-        app:title="Edit Profile"
-        app:titleTextColor="@color/colorYellow" />
+        app:navigationIcon="@drawable/ic_hamburger">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_gravity="center"
+            android:text="Edit Profile"
+            android:textColor="@color/colorYellow"
+            />
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

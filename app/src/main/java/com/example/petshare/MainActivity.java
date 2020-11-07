@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String, String> jsonUserData;
     private Intent intent;
     private ProgressDialog dialog;
+    private SharedPreferences sharedPreferences;
 
 
 
@@ -150,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                        Log.i("Test Data", ""+jsonUserData);
+                        Log.i("Test Data", ""+myResponse);
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -162,13 +164,30 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
 //                          lblEmail.setText(jsonUserData.get("name"));
                             dialog.dismiss();
-                            Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("name")+"\n You have Successfully Login ", LENGTH_LONG).show();
+
+                            Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("email")+"\n You have Successfully Login ", LENGTH_LONG).show();
                             intent  = new Intent(getBaseContext(), dashboard_activity.class);
                             intent.putExtra("id", jsonUserData.get("id"));
                             intent.putExtra("name", jsonUserData.get("name"));
                             intent.putExtra("role_id", jsonUserData.get("role_id"));
                             intent.putExtra("image", jsonUserData.get("image"));
                             intent.putExtra("status", jsonUserData.get("status"));
+
+                            sharedPreferences = getSharedPreferences("KEY_USER_INFO",MODE_PRIVATE);
+
+                            String checkSP = sharedPreferences.getString("KEY_NAME", null);
+
+                            if(checkSP == null){
+                                //put data on shared preferences
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("KEY_ID", jsonUserData.get("id"));
+                                editor.putString("KEY_NAME", jsonUserData.get("name"));
+                                editor.putString("KEY_ROLE_ID", jsonUserData.get("role_id"));
+                                editor.putString("KEY_IMAGE", jsonUserData.get("image"));
+                                editor.putString("KEY_STATUS", jsonUserData.get("status"));
+                                editor.apply();
+                            }
+
                             startActivity(intent);
                         }
                     });

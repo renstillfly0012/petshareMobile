@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         RequestBody formBody = new FormBody.Builder()
+                .add("X-CSRF-Token", "_token")
                 .add("type", JSON.toString())
                 .add("name", name)
                 .add("email", email)
@@ -92,11 +93,13 @@ public class RegisterActivity extends AppCompatActivity {
                 .add("confirm", confirm)
                 .build();
 
+
         final Request request = new Request.Builder()
                 .url(Constant.REGISTER) //which is http://pet-share.com/api/guest/register
 //              .url("http://pet-share.com/api/guest/register?name="+name+"&email="+email+"&password="+password+"&password_confirmation="+confirm)
 //                .method("POST", formBody)
                 .post(formBody)
+                .header("X-CSRF-Token", "_token")
                 .build();
 
 //        Log.i("Response Message", ""+request.body());

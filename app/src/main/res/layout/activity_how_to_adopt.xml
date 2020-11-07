@@ -55,7 +55,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="HOW TO \n TO ADOPT A \nPET?"
+        android:text="HOW TO \nTO ADOPT A \nPET?"
         android:textColor="@color/colorYellow"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
