@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 //                          lblEmail.setText(jsonUserData.get("name"));
                             dialog.dismiss();
 
-                            Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("email")+"\n You have Successfully Login ", LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Welcome "+jsonUserData.get("role_id")+"\n You have Successfully Login ", LENGTH_LONG).show();
                             intent  = new Intent(getBaseContext(), dashboard_activity.class);
                             intent.putExtra("id", jsonUserData.get("id"));
                             intent.putExtra("name", jsonUserData.get("name"));

@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/txtName"
+        android:id="@+id/reg_txtFname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -41,12 +41,12 @@
         android:layout_marginTop="9dp"
         android:text="Full Name"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/txtName"
-        app:layout_constraintStart_toStartOf="@+id/txtName"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtFname"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtFname"
+        app:layout_constraintTop_toBottomOf="@+id/reg_txtFname" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/reg_txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -55,8 +55,8 @@
         android:gravity="center|center_horizontal"
         android:hint="JuanDelaCruz@gmail.com"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/txtName"
-        app:layout_constraintStart_toStartOf="@+id/txtName"
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtFname"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtFname"
         app:layout_constraintTop_toBottomOf="@+id/lblName" />
 
     <TextView
@@ -66,12 +66,12 @@
         android:layout_marginTop="9dp"
         android:text="E-mail Address"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/reg_txtEmail" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/reg_txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -80,8 +80,8 @@
         android:gravity="center|center_horizontal"
         android:hint="**********"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/txtEmail"
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtEmail"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
@@ -91,12 +91,12 @@
         android:layout_marginTop="9dp"
         android:text="Password"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/txtPassword"
-        app:layout_constraintStart_toStartOf="@+id/txtPassword"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtPassword"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/reg_txtPassword" />
 
     <EditText
-        android:id="@+id/txtConfirm"
+        android:id="@+id/reg_txtConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -105,8 +105,8 @@
         android:gravity="center|center_horizontal"
         android:hint="**********"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/txtPassword"
-        app:layout_constraintStart_toStartOf="@+id/txtPassword"
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtPassword"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtPassword"
         app:layout_constraintTop_toBottomOf="@+id/lblPassword" />
 
     <TextView
@@ -115,9 +115,9 @@
         android:layout_height="wrap_content"
         android:text="Confirm Password"
         android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/txtConfirm"
-        app:layout_constraintStart_toStartOf="@+id/txtConfirm"
-        app:layout_constraintTop_toBottomOf="@+id/txtConfirm" />
+        app:layout_constraintEnd_toEndOf="@+id/reg_txtConfirm"
+        app:layout_constraintStart_toStartOf="@+id/reg_txtConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/reg_txtConfirm" />
 
     <Button
         android:id="@+id/btnSubmit"

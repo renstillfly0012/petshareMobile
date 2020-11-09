@@ -122,7 +122,7 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
-                Toast.makeText(getBaseContext(), "Log out Successfully", Toast.LENGTH_SHORT);
+                Toast.makeText(getBaseContext(), "Log out Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 finish();
 

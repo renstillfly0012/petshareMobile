@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -92,7 +93,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         imgUserImg = header.findViewById(R.id.imgUserImg);
         imgUrl = "https://pet-share.com/assets/images/"+image;
         Glide.with(this).load(imgUrl).into(imgUserImg);
-                txtUser.setText(name);
+        txtUser.setText(name);
 //        if(role_id == "1"){
 //            txtRole.setText("Foster User");
 //        }else{
@@ -141,8 +142,12 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_logout:
                 intent = new Intent(this, MainActivity.class);
-
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(this, "Log out Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                finish();
 
         }
 

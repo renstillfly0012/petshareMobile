@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
@@ -123,8 +124,12 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_logout:
                 intent = new Intent(this, MainActivity.class);
-
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(getApplicationContext(), "Log out Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                finish();
 
         }
 
