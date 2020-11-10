@@ -105,16 +105,18 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
 
+                    showToast("GSON" + new Gson().toJson(response.body()));
                     if (response.isSuccessful()) {
 
                         showDialog("Loading..");
                         showToast("Successful");
 
+
                     } else {
                         try {
                             showToast("An error ocured\nPlease try again later." + response.errorBody().string());
-                            Log.i("Error Message", ""+response.errorBody().string());
-                            showToast("" + new Gson().toJson(response.body()));
+                            Log.e("Error Message", ""+response.errorBody().string());
+
                         } catch (IOException e) {
                             e.printStackTrace();
                             showToast(e.getMessage());
