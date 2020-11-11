@@ -43,4 +43,10 @@ public class Constant {
         return getservice;
     }
 
+    public static ApiPet getPetService(){
+        ApiPet getservice = getRetroFit().create(ApiPet.class);
+
+        return getservice;
+    }
+
 }

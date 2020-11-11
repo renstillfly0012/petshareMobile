@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     } catch (JSONException e) {
+
                         e.printStackTrace();
                     }
 
@@ -192,6 +193,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                }else{
+                    Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
             }
         });
