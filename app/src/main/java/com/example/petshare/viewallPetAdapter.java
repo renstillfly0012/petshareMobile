@@ -46,12 +46,15 @@ public abstract class viewallPetAdapter extends RecyclerView.Adapter<viewallPetA
             txtPetCode = itemView.findViewById(R.id.txtPetCode);
             btnViewPet = itemView.findViewById(R.id.btnViewPet);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
                         Log.e("OnCLick", ""+getAdapterPosition()+"\n"+listener);
                         int position = getAdapterPosition();
+                        viewAllPets vap = new viewAllPets();
+                        vap.getCurrentPos(position);
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
 

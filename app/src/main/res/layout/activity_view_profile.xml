@@ -82,48 +82,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_username"
-        android:editable="false"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="Insert Name Here"
+        android:enabled="false"
         android:textColor="@color/colorYellow"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-    <EditText
-        android:id="@+id/view_txtEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@drawable/ic_email"
-        android:editable="false"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textEmailAddress"
-        android:text="Juan Dela Cruz"
-        android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/view_txtFname"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view_txtFname"
-        app:layout_constraintTop_toBottomOf="@+id/view_txtFname" />
-
-    <EditText
-        android:id="@+id/view_txtPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@drawable/ic_password"
-        android:editable="false"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPassword"
-        android:text="********"
-        android:textColor="@color/colorYellow"
-        app:layout_constraintEnd_toEndOf="@+id/view_txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/view_txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/view_txtEmail" />
 
     <Button
         android:id="@+id/view_btnBack"

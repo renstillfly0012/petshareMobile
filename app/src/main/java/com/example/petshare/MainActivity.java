@@ -187,8 +187,19 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString("KEY_IMAGE", jsonUserData.get("image"));
                                 editor.putString("KEY_STATUS", jsonUserData.get("status"));
                                 editor.apply();
-                            }
 
+                            }else{
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.putString("KEY_ID", jsonUserData.get("id"));
+                                editor.putString("KEY_NAME", jsonUserData.get("name"));
+                                editor.putString("KEY_ROLE_ID", jsonUserData.get("role_id"));
+                                editor.putString("KEY_IMAGE", jsonUserData.get("image"));
+                                editor.putString("KEY_STATUS", jsonUserData.get("status"));
+                                editor.apply();
+
+                            }
                             startActivity(intent);
                         }
                     });

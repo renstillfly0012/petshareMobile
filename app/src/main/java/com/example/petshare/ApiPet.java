@@ -11,6 +11,6 @@ import retrofit2.http.POST;
 public interface ApiPet {
 
     @Headers({"Accept: application/json"})
-    @GET("/api/user/viewallpets")
+    @GET("user/viewallpets")
     Call<List<PetResponse>> getAllPets();
 }

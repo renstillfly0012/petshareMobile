@@ -109,8 +109,10 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
 
                         showDialog("Loading..");
-                        showToast("Successful");
-
+                        intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        showToast("Registration is successful");
+                        dialog.dismiss();
+                        startActivity(intent);
 
                     } else {
                         try {

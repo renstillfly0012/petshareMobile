@@ -65,13 +65,12 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 //        image = intent.getStringExtra("image");
 //        status = intent.getStringExtra("status");
 
-        sharedPreferences = getSharedPreferences("KEY_USER_INFO", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("KEY_USER_INFO", dashboard_activity.MODE_PRIVATE);
         id = sharedPreferences.getString("KEY_ID", null);
         name = sharedPreferences.getString("KEY_NAME", null);
         role_id = sharedPreferences.getString("KEY_ROLE_ID", null);
         image = sharedPreferences.getString("KEY_IMAGE", null);
         status = sharedPreferences.getString("KEY_STATUS", null);
-
 
 
        setSupportActionBar(toolbar);
@@ -123,6 +122,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 
         switch(menuItem.getItemId()){
             case R.id.nav_home:
+
                 break;
             case R.id.nav_adopt:
                 intent = new Intent(this, howToAdopt.class);

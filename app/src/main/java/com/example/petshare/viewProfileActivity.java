@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +77,11 @@ public class viewProfileActivity extends AppCompatActivity implements Navigation
 //            txtRole.setText("Admin User");
 //        }
 
+        Log.e("ViewProfile", ""+id+name+role_id);
         setRole(getRole(role_id));
+        txtfname = findViewById(R.id.view_txtFname);
+        txtfname.setText(name);
+
 
         btnBack = findViewById(R.id.view_btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {

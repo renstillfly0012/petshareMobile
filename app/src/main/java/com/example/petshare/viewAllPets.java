@@ -9,8 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,9 +23,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +46,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,10 +69,16 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
     private SharedPreferences sharedPreferences;
     private ProgressDialog dialog;
     private PetResponse[] petResponses;
-    private ArrayList<viewallPet> petArrayList;
+    private ArrayList<viewallPet> petArrayList = new ArrayList<viewallPet>();
     private RecyclerView recyclerView;
     private viewallPetAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private int day,month,year,hour,minute;
+    private int day_x,month_x,year_x,hour_x,minute_x;
+    private int currentPos;
+    private Context ct;
+    private int a;
+
 
 
 
@@ -121,7 +133,7 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
         cardviewImg = findViewById(R.id.cardviewImg);
         txtPetCode = findViewById(R.id.txtPetCode);
 
-
+        Log.e("ViewAllPetSharedpref", ""+id+name+role_id);
         getAllPetDetails();
 
 
@@ -219,7 +231,26 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
                             petArrayList = new ArrayList<>();
                             for (int i = 0; i < petResponses.length; i++) {
 
-                                petArrayList.add(new viewallPet(petResponses[i].getId(),petResponses[i].getName(),petResponses[i].getImage(),petResponses[i].getAge(),petResponses[i].getBreed(),petResponses[i].getStatus(), petResponses[i].getDescription()));
+                                petArrayList.add(new viewallPet(petResponses[i].getId(),
+                                        petResponses[i].getName(),
+                                        petResponses[i].getImage(),
+                                        petResponses[i].getAge(),
+                                        petResponses[i].getBreed(),
+                                        petResponses[i].getStatus(),
+                                        petResponses[i].getDescription(),
+                                        Integer.parseInt(id))
+                                {
+
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                                    }
+
+                                    @Override
+                                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                                    }
+                                });
                             }
 //                            petArrayList = new ArrayList<>();
 //                            petArrayList.add(new viewallPet(petResponses[0].getId(),petResponses[0].getName(),petResponses[0].getImage(),petResponses[0].getAge(),petResponses[0].getBreed(),petResponses[0].getStatus(), petResponses[0].getDescription()));
@@ -248,12 +279,15 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
                            adapter.setOnItemClickListener(new viewallPetAdapter.OnItemClickListener() {
                                @Override
                                public void onItemClick(int position) {
-                                   petArrayList.get(position).showToast(petArrayList.get(position).getId().toString(), viewAllPets.this);
-                                    petArrayList.get(position).showPet(viewAllPets.this, petArrayList.get(position));
+
+
                                }
 
                                @Override
                                public void onViewClick(int position) {
+
+                                   petArrayList.get(position).showToast(petArrayList.get(position).getId().toString(), viewAllPets.this);
+                                   petArrayList.get(position).showPet(viewAllPets.this, petArrayList.get(position));
 
                                }
                            });
@@ -309,6 +343,32 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
 
 
 
+    public void showDate(Context context){
+
+
+
+
+    }
+
+    public void setContextToTimeDialog(Context context){
+        this.ct = context;
+    }
+
+    public void setCurrentPos(int pos){
+        this.currentPos = pos;
+    }
+
+    public int getCurrentPos(int pos){
+        a = pos;
+        Log.e("A", ""+a);
+        return a;
+    }
+
+
+
+
+
+
 
     public void showToast(String message) {
         Toast.makeText(getBaseContext(),
@@ -338,4 +398,8 @@ public class viewAllPets extends AppCompatActivity implements NavigationView.OnN
     public void setRole(String role_id) {
         txtRole.setText(role_id);
     }
+
+
+
+
 }

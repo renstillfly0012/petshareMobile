@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 public interface ApiUser {
 
     @Headers({"Accept: application/json"})
-    @POST("/api/guest/register")
+    @POST("guest/register")
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 
 }
