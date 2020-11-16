@@ -3,19 +3,32 @@ package com.example.petshare;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +36,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.petshare.donation.donationActivity;
+import com.example.petshare.reports.FetchAddressIntentSerivce;
+import com.example.petshare.reports.reportConstant;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
 public class dashboard_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,12 +49,14 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    TextView txtUser,txtRole;
+    TextView txtUser, txtRole;
     ImageView imgUserImg;
     Log log;
-    String id,name,role_id,image,status,imgUrl;
+    String id, name, role_id, image, status, imgUrl;
     private Intent intent;
     private SharedPreferences sharedPreferences;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    private ResultReceiver resultReceiver;
 
 
     @SuppressLint("WrongViewCast")
@@ -56,7 +77,6 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 //        menu.findItem(R.id.nav_edit).setVisible(false);
 
 
-
         //getting data from mainACtivity
 //        Intent intent = getIntent();
 //        id = intent.getStringExtra("id");
@@ -74,8 +94,8 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         status = sharedPreferences.getString("KEY_STATUS", null);
 
 
-       setSupportActionBar(toolbar);
-       getSupportActionBar().setDisplayShowTitleEnabled(false);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         navigationView.bringToFront();
@@ -91,7 +111,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         txtUser = header.findViewById(R.id.txtUsername);
         txtRole = header.findViewById(R.id.txtRole);
         imgUserImg = header.findViewById(R.id.imgUserImg);
-        imgUrl = "https://pet-share.com/assets/images/"+image;
+        imgUrl = "https://pet-share.com/assets/images/" + image;
         Glide.with(this).load(imgUrl).into(imgUserImg);
         txtUser.setText(name);
 //        if(role_id == "1"){
@@ -105,7 +125,84 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
 
 
 
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            } else {
+                Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void getCurrentLocation() {
+        resultReceiver = new AddressResultReceiver(new Handler());
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000)
+                .setFastestInterval(3000)
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        LocationServices.getFusedLocationProviderClient(dashboard_activity.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(dashboard_activity.this)
+                                .removeLocationUpdates(this);
+                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                            int latestlocationIndex = locationResult.getLocations().size() - 1;
+                            double latitude = locationResult.getLocations().get(latestlocationIndex).getLatitude();
+                            double longitude = locationResult.getLocations().get(latestlocationIndex).getLongitude();
+                            Log.e("Long at Lat","Lat: "+latitude+"\nLong: "+longitude);
+
+                            Location location = new Location(LocationManager.GPS_PROVIDER);
+                            location.setLatitude(latitude);
+                            location.setLongitude(longitude);
+                            fetchAddressFromLatLong(location);
+
+                        }
+
+                    }
+                }, Looper.getMainLooper());
+
+    }
+
+    private void fetchAddressFromLatLong(Location location){
+        intent = new Intent(this, FetchAddressIntentSerivce.class);
+        intent.putExtra(reportConstant.RECEIVER, resultReceiver);
+        intent.putExtra(reportConstant.Location_DATA_EXTRA, location);
+        startService(intent);
+    }
+
+    public class AddressResultReceiver extends ResultReceiver{
+
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if(resultCode == reportConstant.SUCCESS_RESULT){
+                Log.e("ADDRESS", resultData.getString(reportConstant.RESULT_DATA_KEY));
+            }else{
+                Log.e("ADDRESS NOT FOUND"+resultCode,resultData.getString(reportConstant.RESULT_DATA_KEY) );
+            }
+        }
     }
 
     public void onBackPressed(){
@@ -130,6 +227,19 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                 startActivity(intent);
                 break;
             case R.id.nav_report:
+
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(dashboard_activity.this, new String[]{
+                                    Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_CODE_LOCATION_PERMISSION);
+
+                } else {
+                    getCurrentLocation();
+                }
+
+                
                 break;
             case R.id.nav_donate:
                 intent = new Intent(this, donationActivity.class);
@@ -151,6 +261,9 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                 Toast.makeText(this, "Log out Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 finish();
+
+                break;
+            default:
 
         }
 
