@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.petshare.donation.donationActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class dashboard_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -131,6 +132,8 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
             case R.id.nav_report:
                 break;
             case R.id.nav_donate:
+                intent = new Intent(this, donationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_view_profile:
                 intent = new Intent(this, viewProfileActivity.class);
