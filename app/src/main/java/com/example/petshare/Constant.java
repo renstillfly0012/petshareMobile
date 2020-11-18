@@ -3,7 +3,6 @@ package com.example.petshare;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import okhttp3.OkHttp;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -53,6 +52,14 @@ public class Constant {
         ApiAdopt getservice = getRetroFit().create(ApiAdopt.class);
 
         return getservice;
+    }
+
+    public static ApiDonate getDonateService(){
+
+        ApiDonate getservice = getRetroFit().create(ApiDonate.class);
+
+        return getservice;
+
     }
 
 }

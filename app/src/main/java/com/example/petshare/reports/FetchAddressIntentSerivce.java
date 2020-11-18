@@ -20,6 +20,7 @@ public class FetchAddressIntentSerivce extends IntentService {
 
     private ResultReceiver resultReceiver;
 
+
     public  FetchAddressIntentSerivce(){
         super("FetchAddressIntentSerivce");
     }
