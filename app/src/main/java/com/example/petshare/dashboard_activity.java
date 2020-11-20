@@ -30,6 +30,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.bumptech.glide.Glide;
 import com.example.petshare.donation.donationActivity;
 import com.example.petshare.reports.FetchAddressIntentSerivce;
+import com.example.petshare.reports.reportActivity;
 import com.example.petshare.reports.reportConstant;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -50,6 +51,8 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
     private SharedPreferences sharedPreferences;
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     private ResultReceiver resultReceiver;
+    private String address;
+    private double lat, lng;
 
 
     @SuppressLint("WrongViewCast")
@@ -125,6 +128,7 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 getCurrentLocation();
             } else {
                 Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
@@ -165,7 +169,10 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                             Location location = new Location(LocationManager.GPS_PROVIDER);
                             location.setLatitude(latitude);
                             location.setLongitude(longitude);
+                            lat = latitude;
+                            lng = longitude;
                             fetchAddressFromLatLong(location);
+
                             Log.e("Location", String.valueOf(location));
 
                         }
@@ -180,6 +187,8 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         intent.putExtra(reportConstant.RECEIVER, resultReceiver);
         intent.putExtra(reportConstant.Location_DATA_EXTRA, location);
         startService(intent);
+
+
     }
 
     public class AddressResultReceiver extends ResultReceiver{
@@ -192,6 +201,14 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             super.onReceiveResult(resultCode, resultData);
             if(resultCode == reportConstant.SUCCESS_RESULT){
+                address = resultData.getString(reportConstant.RESULT_DATA_KEY);
+                intent = new Intent( dashboard_activity.this, reportActivity.class);
+                intent.putExtra("user_lat", lat);
+                intent.putExtra("user_lng", lng);
+                intent.putExtra("user_address", address);
+
+                Log.e("BEFORE GOING TO REPORTS", ""+lat+"\n"+lng+"\n"+address);
+                startActivity(intent);
                 Log.e("ADDRESS", resultData.getString(reportConstant.RESULT_DATA_KEY));
             }else{
                 Log.e("ADDRESS NOT FOUND"+resultCode,resultData.getString(reportConstant.RESULT_DATA_KEY) );
@@ -226,7 +243,8 @@ public class dashboard_activity extends AppCompatActivity implements NavigationV
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(dashboard_activity.this, new String[]{
-                                    Manifest.permission.ACCESS_FINE_LOCATION},
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE},
                             REQUEST_CODE_LOCATION_PERMISSION);
 
                 } else {

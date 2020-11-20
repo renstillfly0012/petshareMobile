@@ -62,4 +62,11 @@ public class Constant {
 
     }
 
+    public static ApiReport getReportService(){
+
+        ApiReport getservice = getRetroFit().create(ApiReport.class);
+
+        return getservice;
+    }
+
 }

@@ -8,4 +8,5 @@ public class reportConstant {
     public static final int SUCCESS_RESULT = 1;
     public static final int FAILURE_RESULT = 0;
 
+
 }
